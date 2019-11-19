@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 import Products from './components/Products'
 import Filter from './components/Filter';
 
-class App extends Component {
+export default class App extends Component {
 
   constructor(props){
     super(props);
@@ -13,6 +12,7 @@ class App extends Component {
       filteredProducts: [],
     }
     this.handleChangeSort = this.handleChangeSort.bind(this);
+    this.handleChangeSize = this.handleChangeSize.bind(this);
   }
 
   componentWillMount() {
@@ -20,13 +20,19 @@ class App extends Component {
     .then(data => this.setState({
       products: data,
       filteredProducts: data
-    }))
+    }));
   }
 
   handleChangeSort(e) {
     this.setState({sort: e.targetValue});
     this.listProducts();
   }
+
+  handleChangeSize(e) {
+    this.setState({size: e.targetValue()});
+    this.listProducts();
+  }
+
   listProducts() {
     this.setState(state => {
       if (state.sort !== '') {
@@ -34,8 +40,13 @@ class App extends Component {
       } else {
         state.products.sort((a,b) => (a.id<b.id?1:-1));
       }
+
+      if (state.size !== '') {
+        return { filteredProducts: state.products.filter(a => a.availableSizes.indexOf(state.size.toUpperCase())>=0)}
+      }
+
       return {filteredProducts: state.products};
-    })
+    });
   }
 
   render () {
@@ -57,5 +68,3 @@ class App extends Component {
     );
   }
 }
-
-export default App;
