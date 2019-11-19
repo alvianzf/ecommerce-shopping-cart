@@ -23,14 +23,15 @@ export default class App extends Component {
     }));
   }
 
-  handleChangeSort(e) {
+  handleChangeSort = (e) => {
     this.setState({sort: e.targetValue});
     this.listProducts();
   }
 
-  handleChangeSize(e) {
-    this.setState({size: e.targetValue()});
+  handleChangeSize = (e) => {
+    this.setState({size: e.target.value});
     this.listProducts();
+
   }
 
   listProducts() {
@@ -40,9 +41,12 @@ export default class App extends Component {
       } else {
         state.products.sort((a,b) => (a.id<b.id?1:-1));
       }
-
+      
       if (state.size !== '') {
-        return { filteredProducts: state.products.filter(a => a.availableSizes.indexOf(state.size.toUpperCase())>=0)}
+        return { filteredProducts:state.products.filter( a => 
+          a.availableSizes.indexOf(state.size.toUpperCase())>=0
+          )
+        };
       }
 
       return {filteredProducts: state.products};

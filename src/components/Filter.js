@@ -20,15 +20,15 @@ export default class Filter extends Component {
          <div className="col-md-4"></div>
       
             <label>
-                Filter Size
-                <select className="form-control" value={this.props.size} onChange={this.props.handleChangeSize} >
-                    <option value="">Select</option>
-                    <option value="xs">XS</option>
-                    <option value="s">S</option>
-                    <option value="m">M</option>
-                    <option value="l">L</option>
-                    <option value="xl">XL</option>
-                    <option value="xxl">XXL</option>  
+                  Filter Size
+                 <select className="form-control" value={this.props.size} onChange={this.props.handleChangeSize} >
+                     <option value="">Select</option>
+                     <option value="xs">XS</option>
+                     <option value="s">S</option>
+                     <option value="m">M</option>
+                     <option value="l">L</option>
+                     <option value="xl">XL</option>
+                     <option value="xxl">XXL</option>
                 </select>
             </label>
      </div>
