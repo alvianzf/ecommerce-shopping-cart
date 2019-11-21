@@ -6,8 +6,8 @@ class Basket extends Component {
       const { cartItems } = this.props;
     return (
      <div className="alert alert-info">
-         {cartItems.length===0?"Basket is empty": <div> You have { cartItems.length } products in the basket</div>}
-         {cartItems.length > 0 && 
+        {cartItems.length===0?"Basket is empty": <div> You have { cartItems.length } products in the basket</div>}
+        {cartItems.length > 0 && 
             <div>
                 <ul>
                     {cartItems.map(item => 
@@ -19,8 +19,11 @@ class Basket extends Component {
                     )}
                 </ul>
                 Total: { util.formatCurrency(cartItems.reduce((a, c) => a + c.price*c.count, 0)) }
+                <br />
+                <button className="btn btn-primary">Checkout</button>
             </div>
-            }
+        }
+
      </div>
     );
   }
