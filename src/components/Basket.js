@@ -1,4 +1,5 @@
 import React, { Component } from "react"; 
+import util from '../util';
 
 class Basket extends Component {
   render() {
@@ -12,11 +13,12 @@ class Basket extends Component {
                     {cartItems.map(item => 
                         <li>
                             <b>{ item.title } </b>
-                            <span> x { item.count } </span>
-                            <button className="btn btn-danger" onClick={(e) => this.handleRemoveFromCart(e, item)}>X</button>
+                    <span> x { item.count } = {util.formatCurrency((item.price * item.count).toFixed(2))}</span>
+                            <button className="btn btn-danger" onClick={(e) => this.props.handleRemoveFromCart(e, item)}>X</button>
                         </li>
                     )}
                 </ul>
+                Total: { util.formatCurrency(cartItems.reduce((a, c) => a + c.price*c.count, 0)) }
             </div>
             }
      </div>
