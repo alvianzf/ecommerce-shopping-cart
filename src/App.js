@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import Products from './components/Products'
 import Filter from './components/Filter';
+import Basket from './components/Basket';
 
 export default class App extends Component {
 
@@ -10,9 +11,11 @@ export default class App extends Component {
     this.state= {
       products: [],
       filteredProducts: [],
+      cartItems: []
     }
     this.handleChangeSort = this.handleChangeSort.bind(this);
     this.handleChangeSize = this.handleChangeSize.bind(this);
+    this.handleAddToCart = this.handleAddToCart.bind(this);
   }
 
   componentWillMount() {
@@ -32,6 +35,25 @@ export default class App extends Component {
     this.setState({size: e.target.value});
     this.listProducts();
 
+  }
+
+  handleAddToCart(e, product) {
+    this.setState(state=> {
+      const cartItems = state.cartItems;
+      let productAlreadyInCart = false;
+
+      cartItems.forEach(item => {
+        if (item.id === product.id) {
+          productAlreadyInCart = true;
+          item.count++;
+        }
+      })
+      if (!productAlreadyInCart) {
+        cartItems.push({...product, count:1});
+      }
+      localStorage.setItem('cartItems', JSON.stringify(cartItems));
+      return cartItems;
+    })
   }
 
   listProducts() {
@@ -65,7 +87,7 @@ export default class App extends Component {
             <Products products={ this.state.filteredProducts } handleAddToCart= { this.handleAddToCart } />
           </div>
           <div className="col-md-4">
-  
+            <Basket cartItems={ this.state.cartItems } handleRemoveFromCart = { this.handleRemoveFromCart }/>
           </div>
         </div>
       </div>
