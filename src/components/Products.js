@@ -10,7 +10,8 @@ import {fetchProducts} from '../actions/productActions'
   }
 
   render() {
-      const productsItems = this.props.products.map( product => (
+    console.log(this.props.products)
+      const productsItems = this.props.products.map(product => (
           <div key={ product.id } className="col-md-4">
             <div className="thumbnail text-center">
                 <a href={`#${product.id}`} onClick={(e) => this.props.handleAddToCart(e, product)}>
@@ -31,5 +32,5 @@ import {fetchProducts} from '../actions/productActions'
     );
   }
 }
-const mapStateToProps = state => ({products: state.products.items})
+const mapStateToProps = state => ({products: state.products.filteredItems})
 export default connect(mapStateToProps, {fetchProducts})(Products);
